@@ -14,7 +14,7 @@ import com.syrianrevo.foodApp.model.JsonProducer;
 public class FoodResApp1Application {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		//new JsonProducer(Constants.JSON_FILE);
+		new JsonProducer(Constants.JSON_FILE);
 		
 		
 		SpringApplication.run(FoodResApp1Application.class, args);
