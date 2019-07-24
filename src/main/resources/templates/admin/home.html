@@ -3,35 +3,104 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Admin Page</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>
+    <title>Chef Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-<div class="container">
-
-    <form th:action="@{/logout}" method="get">
+<body id="chef">
+	
+	<form th:action="@{/logout}" method="get">
         <button class="btn btn-md btn-danger btn-block" name="registration"
                 type="Submit">Logout
         </button>
     </form>
-
-    <div class="panel-group" style="margin-top:40px">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <span th:utext="${userName}"></span>
-            </div>
-            <div class="panel-body">
-                <img th:src="@{/images/beer.jpg}" class="img-responsive center-block" width="400" height="400"
-                     alt="Beer"/>
-            </div>
-            <p class="admin-message-text text-center" th:utext="${adminMessage}"></p>
+    
+    <div id="topics-expanded">
+		<h1 class="title">Menu Entries</h1>
+		
+		<div id="topic-event-creation">
+        <div class="apps">
+          <h1 class="topic-title">Appetizers</h1>
+         <div id="apps-list"></div>
+         		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Appetizers'">
+						<!-- <h1><input type="checkbox" th:field="*{entries}" th:value="${entry.itemQuantity}" /><label th:text="${entry.itemName}"></label></h1><h1 class="menu-price"><label th:text="${entry.itemPrice}"></label></h1>  -->
+						<h1><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<p th:text="${entry.itemDescription}"></p>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>	
+						<br></br>  
+						<a th:href="@{/entry/{id}(id = ${entry.id})}">Update the Item</a><br />
+						<a th:href="@{/entry/delete/{id}(id = ${entry.id})}">Delete the Item</a>
+						
+				    </div>	        
+		    	</div>	
         </div>
-    </div>
+        <div class="lunch">
+          <h1 class="topic-title">Lunch</h1>
+          <div id="lunch-list"></div>
+		         <div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Lunch'">
+						<h1><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<p th:text="${entry.itemDescription}"></p>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>	
+						<br></br>        
+						<a th:href="@{/entry/{id}(id = ${entry.id})}">Update the Item</a><br />
+						<a th:href="@{/entry/delete/{id}(id = ${entry.id})}">Delete the Item</a>
+						
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="dinner">
+          <h1 class="topic-title">Dinner</h1>
+          <div id="dinner-list"></div>
+          		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Dinner'">
+						<h1><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<p th:text="${entry.itemDescription}"></p>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>	
+						<br></br>  
+						<a th:href="@{/entry/{id}(id = ${entry.id})}">Update the Item</a><br />
+						<a th:href="@{/entry/delete/{id}(id = ${entry.id})}">Delete the Item</a>
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="sides">
+          <h1 class="topic-title">Sides</h1>
+          <div id="sides-list"></div>
+          		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Side'">
+						<h1><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<p th:text="${entry.itemDescription}"></p>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>	
+						<br></br>  			        
+						<a th:href="@{/entry/{id}(id = ${entry.id})}">Update the Item</a><br />
+						<a th:href="@{/entry/delete/{id}(id = ${entry.id})}">Delete the Item</a>
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="drinks">
+          <h1 class="topic-title">Drinks</h1>
+          <div id="drinks-list"></div>
+          		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Drink'">
+						<h1><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<p th:text="${entry.itemDescription}"></p>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>	
+						<br></br>  
+						<a th:href="@{/entry/{id}(id = ${entry.id})}">Update the Item</a><br />
+						<a th:href="@{/entry/delete/{id}(id = ${entry.id})}">Delete the Item</a>
+				    </div>	        
+		    	</div>
+        </div>
 
-</div>
+      </div>
+    </div>
+    
+    <div class="">
+        <button id="add-item" onclick="window.location.href = '/entry'">Add a new Item to the Menu</button>
+    </div>
 </body>
 </html>

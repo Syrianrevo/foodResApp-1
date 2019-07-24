@@ -1,0 +1,86 @@
+[
+	{"menuItem":{
+		"itemName":"Cheese Fries",
+		"itemDescription":"Fries smothered in Cheese and bacon",
+		"itemPrice":"5.99",
+		"itemQuantity":"5",
+		"itemCategory":"Appetizers"
+	}},
+	{"menuItem":{
+		"itemName":"Onion Rings",
+		"itemDescription":"Original Onion Rings coats in our signature batter.",
+		"itemPrice":"4.99",
+		"itemQuantity":"6",
+		"itemCategory":"Appetizers"
+	}},
+	{"menuItem":{
+		"itemName":"Grilled Chicken Alfredo",
+		"itemDescription":"Delisious pasta smothered in our house made alfredo sauce topped with grilled chicken",
+		"itemPrice":"11.99",
+		"itemQuantity":"3",
+		"itemCategory":"Lunch"
+	}},
+	{"menuItem":{
+		"itemName":"Turkey Bacon Club",
+		"itemDescription":"Roasted and sliced turkey breast, bacon, lettus and tomato on top of toasted bread",
+		"itemPrice":"8.99",
+		"itemQuantity":"12",
+		"itemCategory":"Lunch"
+	}},
+	{"menuItem":{
+		"itemName":"Fish and Chips",
+		"itemDescription":"Pefectly coated Cod fish with house made chips",
+		"itemPrice":"10.99",
+		"itemQuantity":"7",
+		"itemCategory":"Lunch"
+	}},
+	{"menuItem":{
+		"itemName":"Double Bacon Burger",
+		"itemDescription":"1/2 pound all beef patty with DOUBLE the bacon.",
+		"itemPrice":"12.99",
+		"itemQuantity":"10",
+		"itemCategory":"Dinner"
+	}},
+	{"menuItem":{
+		"itemName":"6 O.Z. Sirloin",
+		"itemDescription":"6 O.Z. Sirloin cooks to perfection",
+		"itemPrice":"14.99",
+		"itemQuantity":"12",
+		"itemCategory":"Dinner"
+	}},
+	{"menuItem":{
+		"itemName":"Chicken Tender Platter",
+		"itemDescription":"Premium chicken tenders coated in our signature batter and fried to perfection",
+		"itemPrice":"9.99",
+		"itemQuantity":"10",
+		"itemCategory":"Dinner"
+	}},
+	{"menuItem":{
+		"itemName":"Fries",
+		"itemDescription":"Single serving of fries",
+		"itemPrice":"3.99",
+		"itemQuantity":"5",
+		"itemCategory":"Sides"
+	}},
+	{"menuItem":{
+		"itemName":"Garlic Mashed Potatoes",
+		"itemDescription":"House made mashed potatoes with just a hint of garlic",
+		"itemPrice":"3.99",
+		"itemQuantity":"10",
+		"itemCategory":"Sides"
+	}},
+	{"menuItem":{
+		"itemName":"Tea",
+		"itemDescription":"Sweet tea, just like mom used to make.",
+		"itemPrice":"2.99",
+		"itemQuantity":"8",
+		"itemCategory":"Drinks"
+	}},
+	{"menuItem":{
+		"itemName":"Coke",
+		"itemDescription":"Infamous Coka-Cola",
+		"itemPrice":"2.99",
+		"itemQuantity":"10",
+		"itemCategory":"Drinks"
+	}}
+]

@@ -60,6 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").and().exceptionHandling()
                 .accessDeniedPage("/access-denied");
+        
+        http.authorizeRequests().antMatchers("/**").hasAuthority("USER").and().formLogin();
+        // to permit h2 in the browser
+        http.headers().frameOptions().disable();
     }
 
     @Override

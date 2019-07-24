@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order</title>
+   <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+    
+    
+</head>
+<body id="consumer">
+
+	<form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+    
+	<div id="topics-expanded">
+		<h1 class="title">Place an Order</h1>
+		
+		<div id="topic-event-creation">
+        <div class="apps">
+         <h1 class="topic-title">Appetizers</h1>
+         <div id="apps-list"></div>
+         		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Appetizers'">
+						<h1><input type="checkbox" /><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<div th:inline="text" >(Quantity: [[${entry.itemQuantity}]] Available)</div>
+				        <p th:text="${entry.itemDescription}"></p>				       	
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="lunch">
+          <h1 class="topic-title">Lunch</h1>
+          <div id="lunch-list"></div>
+		         <div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Lunch'">
+						<h1><input type="checkbox" /><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>
+				        <p th:text="${entry.itemDescription}"></p>
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="dinner">
+          <h1 class="topic-title">Dinner</h1>
+          <div id="dinner-list"></div>
+          		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Dinner'">
+						<h1><input type="checkbox" /><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>
+				        <p th:text="${entry.itemDescription}"></p>
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="sides">
+          <h1 class="topic-title">Sides</h1>
+          <div id="sides-list"></div>
+          		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Side'">
+						<h1><input type="checkbox" /><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>
+				        <p th:text="${entry.itemDescription}"></p>
+				    </div>	        
+		    	</div>
+        </div>
+        <div class="drinks">
+          <h1 class="topic-title">Drinks</h1>
+          <div id="drinks-list"></div>
+          		<div th:each="entry : *{entries}">
+		          	<div th:if="${entry.itemCategory} eq 'Drink'">
+						<h1><input type="checkbox" /><label th:text="${entry.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${entry.itemPrice}]] $</div>
+						<div th:inline="text" >Quantity: [[${entry.itemQuantity}]] Available</div>
+				        <p th:text="${entry.itemDescription}"></p>	
+				    </div>	        
+		    	</div>
+        </div>
+
+        <button id="order-submit">Review Order</button>
+      </div>
+    </div>
+    <!-- <div th:each="entry : *{entries}">
+        <h2 th:text="${entry.itemName}"></h2>
+        <p th:text="${entry.itemDescription}"></p>
+        <p th:text="${entry.itemPrice}"></p>
+        <p th:text="${entry.itemQuantity}"></p>
+        <p th:text="${entry.itemCategory}"></p>
+       	<input type="text" name="temp" value="22" th:value="${temp}" />
+    </div> -->
+    <div class="">
+        
+    </div>
+</body>
+</html>
+
