@@ -1,8 +1,5 @@
 package com.syrianrevo.foodApp.kafkaConfig;
 
-
-
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,39 +14,34 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.syrianrevo.foodApp.model.Entry;
 
-
-
-
-
-
 public class KafkaProducerConfig {
-	
-	public static Map<String, Object> producerConfig(){
+
+	public static Map<String, Object> producerConfig() {
 		Map<String, Object> props = new HashMap<>();
-		
-		if(Constants.DEV) {
+
+		if (Constants.DEV) {
 			props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.KAFKA_SERVER_LIST);
-			
-			
+
 		} else {
 			props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.KAFKA_SERVER);
 		}
-		
+
 		props.put(ProducerConfig.CLIENT_ID_CONFIG, Constants.CLIENT_ID);
 		props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
-		
+
 		return props;
 	}
-	
-	
-	  public static ProducerFactory<String, Entry> producerFactory() {
-	  JsonSerializer<Entry> jsonSerializer = new JsonSerializer<>();
-	  jsonSerializer.setAddTypeInfo(false); return new
-	  DefaultKafkaProducerFactory<String, Entry>(producerConfig(),
-	  Serdes.String().serializer(), jsonSerializer); }
-	  
-	  public static KafkaTemplate<String, Entry> kafkaTemplate(){ return new
-	  KafkaTemplate<>(producerFactory()); }
-	 
+
+	public static ProducerFactory<String, Entry> producerFactory() {
+		JsonSerializer<Entry> jsonSerializer = new JsonSerializer<>();
+		jsonSerializer.setAddTypeInfo(false);
+		return new DefaultKafkaProducerFactory<String, Entry>(producerConfig(), Serdes.String().serializer(),
+				jsonSerializer);
+	}
+
+	public static KafkaTemplate<String, Entry> kafkaTemplate() {
+		return new KafkaTemplate<>(producerFactory());
+	}
+
 }

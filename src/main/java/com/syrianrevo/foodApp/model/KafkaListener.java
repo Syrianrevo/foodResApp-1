@@ -12,12 +12,12 @@ import com.syrianrevo.foodApp.kafkaConfig.Constants;
 @Component
 public class KafkaListener {
 
-    @Autowired
-    private SimpMessagingTemplate template;
-
-    @StreamListener(target = Constants.KAFKA_TOPIC)
-    public void processMessage(Entry pushMessage){
-        this.template.convertAndSend("/topic/pushNotification", pushMessage);
-    }
+	/*
+	 * @Autowired private SimpMessagingTemplate template;
+	 * 
+	 * @StreamListener(target = Constants.KAFKA_TOPIC) public void
+	 * processMessage(Entry pushMessage){
+	 * this.template.convertAndSend("/topic/pushNotification", pushMessage); }
+	 */
 }
 

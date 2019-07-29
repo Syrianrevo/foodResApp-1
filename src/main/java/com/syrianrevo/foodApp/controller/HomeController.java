@@ -1,5 +1,7 @@
 package com.syrianrevo.foodApp.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.syrianrevo.foodApp.kafkaConfig.Constants;
+import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
 import com.syrianrevo.foodApp.model.Entry;
+import com.syrianrevo.foodApp.model.JsonProducer;
 import com.syrianrevo.foodApp.repository.EntryRepository;
 
 
@@ -19,6 +24,7 @@ import com.syrianrevo.foodApp.repository.EntryRepository;
 
 /**
  * Created by Ammar Mohrat.
+ * 
  */
 @Controller
 public class HomeController {
@@ -27,11 +33,13 @@ public class HomeController {
     
     
     @GetMapping("/home")
-    public ModelAndView home() {
+    public ModelAndView home() throws FileNotFoundException, IOException {
 
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/home");
+        
+        System.out.println(KafkaConsumerFromTopic.menu.toString());
         return modelAndView;
     }
    
@@ -62,12 +70,14 @@ public class HomeController {
         return "entry";
     }
 
-    @RequestMapping(value = "/entry", method = RequestMethod.POST)
-    public String addEntry(@RequestParam String itemName, @RequestParam String itemDescription, @RequestParam String itemPrice, @RequestParam String itemQuantity, @RequestParam String itemCategory) {
-        Entry newEntry = new Entry(itemName, itemDescription, itemPrice, itemQuantity, itemCategory);
-        entryRepository.save(newEntry);
-        return "redirect:/entry";
-    }
+	/*
+	 * @RequestMapping(value = "/entry", method = RequestMethod.POST) public String
+	 * addEntry(@RequestParam String itemName, @RequestParam String
+	 * itemDescription, @RequestParam String itemPrice, @RequestParam String
+	 * itemQuantity, @RequestParam String itemCategory) { Entry newEntry = new
+	 * Entry(itemName, itemDescription, itemPrice, itemQuantity, itemCategory);
+	 * entryRepository.save(newEntry); return "redirect:/entry"; }
+	 */
     
     // EDIT 
 	/*

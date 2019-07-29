@@ -2,6 +2,8 @@ package com.syrianrevo.foodApp.model;
 
 
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,17 +34,6 @@ public class Entry {
     private String itemQuantity;
     @Column(name="item_category")
     private String itemCategory;
-
-    
-    
-    
-    public Entry(String itemName, String itemDescription, String itemPrice, String itemQuantity, String itemCategory) {
-        this.itemName = itemName;
-        this.itemDescription = itemDescription;
-        this.itemPrice = itemPrice; 
-        this.itemQuantity = itemQuantity; 
-        this.itemCategory = itemCategory; 
-    }
     
     public Entry(JsonElement menuItem) {
 		String in = menuItem.getAsJsonObject().get("itemName").toString();
@@ -106,4 +97,5 @@ public class Entry {
 	public void setItemCategory(String itemCategory) {
 		this.itemCategory = itemCategory;
 	}
+
 }
