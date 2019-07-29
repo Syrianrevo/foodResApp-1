@@ -21,7 +21,6 @@ import com.google.gson.JsonElement;
 public class Entry {
 	
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "entry_id")
     private Long id;
     @Column(name="item_name")

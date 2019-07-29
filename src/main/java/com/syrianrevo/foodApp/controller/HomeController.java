@@ -17,6 +17,7 @@ import com.syrianrevo.foodApp.kafkaConfig.Constants;
 import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
 import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.JsonProducer;
+import com.syrianrevo.foodApp.model.Menu;
 import com.syrianrevo.foodApp.repository.EntryRepository;
 
 
@@ -28,8 +29,8 @@ import com.syrianrevo.foodApp.repository.EntryRepository;
  */
 @Controller
 public class HomeController {
-    @Autowired
-    EntryRepository entryRepository;
+    //@Autowired
+   // EntryRepository entryRepository;
     
     
     @GetMapping("/home")
@@ -39,7 +40,7 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/home");
         
-        System.out.println(KafkaConsumerFromTopic.menu.toString());
+      //  System.out.println(KafkaConsumerFromTopic.menu.toString());
         return modelAndView;
     }
    
@@ -50,25 +51,26 @@ public class HomeController {
 	 * allEntries); return "mainmenu"; }
 	 */
     
-    @RequestMapping("/order")
-    public String order(Model model){
-        List<Entry> allEntries = entryRepository.findAll();
-        model.addAttribute("entries", allEntries);
-        return "order";
-    }
+	/*
+	 * @RequestMapping("/order") public String order(Model model){ List<Entry>
+	 * allEntries = entryRepository.findAll(); model.addAttribute("entries",
+	 * allEntries);
+	 * 
+	 * return "order"; }
+	 */
     
-    // ADD
-    @RequestMapping(value = "/entry", method = RequestMethod.GET)
-    public String newEntry(Model model) {
-        model.addAttribute("pageTitle", "New Entry");
-        model.addAttribute("givenAction", "/entry");
-        model.addAttribute("givenItemName", "");
-        model.addAttribute("givenItemDescription", "");
-        model.addAttribute("givenItemPrice", ""); 
-        model.addAttribute("givenItemQuantity", ""); 
-        model.addAttribute("givenItemCategory", ""); 
-        return "entry";
-    }
+	/*
+	 * // ADD
+	 * 
+	 * @RequestMapping(value = "/entry", method = RequestMethod.GET) public String
+	 * newEntry(Model model) { model.addAttribute("pageTitle", "New Entry");
+	 * model.addAttribute("givenAction", "/entry");
+	 * model.addAttribute("givenItemName", "");
+	 * model.addAttribute("givenItemDescription", "");
+	 * model.addAttribute("givenItemPrice", "");
+	 * model.addAttribute("givenItemQuantity", "");
+	 * model.addAttribute("givenItemCategory", ""); return "entry"; }
+	 */
 
 	/*
 	 * @RequestMapping(value = "/entry", method = RequestMethod.POST) public String
@@ -113,12 +115,11 @@ public class HomeController {
 	 * entryRepository.save(entry); return "redirect:/"; }
 	 */
     // DELETE
-    @RequestMapping(value = "/entry/delete/{id}", method = RequestMethod.GET)
-    public String deleteEntry(@PathVariable(value = "id") Long entryId) {
-        entryRepository.deleteById(entryId);
-        return "redirect:/";
-    }
-
+	/*
+	 * @RequestMapping(value = "/entry/delete/{id}", method = RequestMethod.GET)
+	 * public String deleteEntry(@PathVariable(value = "id") Long entryId) {
+	 * entryRepository.deleteById(entryId); return "redirect:/"; }
+	 */
 	
 }
 

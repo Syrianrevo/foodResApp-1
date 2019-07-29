@@ -17,6 +17,8 @@ import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaProducer;
 public class JsonProducer {
 	
 	private KafkaProducer producer = new KafkaProducer();
+
+	long x = 1; 
 	
 	public JsonProducer(String file) throws FileNotFoundException, IOException {
 		JsonParser jsonParser = new JsonParser();
@@ -26,7 +28,12 @@ public class JsonProducer {
 			JsonArray infoList = (JsonArray) obj;
 			
 			infoList.forEach(info -> {
+				
+				
+				
 				Entry entry = new Entry(info);
+				entry.setId(x); 
+				x++;
 				
 				try {
 					producer.send(entry);

@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 
 public class Menu {
 	
-	private ArrayList<String> items;
+	public static ArrayList<String> items;
     
     
     public Menu() {

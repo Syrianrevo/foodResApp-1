@@ -4,6 +4,8 @@ package com.syrianrevo.foodApp.controller;
 
 import javax.validation.Valid;
 
+import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
+import com.syrianrevo.foodApp.model.Menu;
 import com.syrianrevo.foodApp.model.User;
 import com.syrianrevo.foodApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +66,9 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.setViewName("admin/home");
+       
         return modelAndView;
     }
 

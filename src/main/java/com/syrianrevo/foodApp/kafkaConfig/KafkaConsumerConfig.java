@@ -19,12 +19,12 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
-import org.springframework.kafka.listener.ErrorHandler;
-import org.springframework.kafka.listener.MessageListenerContainer;
+import org.springframework.kafka.listener.*;
+//import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-
-import com.sun.tools.javac.code.TypeMetadata.Entry;
+import org.springframework.kafka.config.AbstractKafkaListenerContainerFactory;
 import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
+import com.syrianrevo.foodApp.model.Entry;
 
 @Configuration
 @EnableKafka
@@ -52,7 +52,6 @@ public class KafkaConsumerConfig {
 	 * return consumer; }
 	 */
 
-	
 	/*
 	 * @Bean public Map<String, Object> createConsumer() {
 	 * 
@@ -70,73 +69,87 @@ public class KafkaConsumerConfig {
 	 * 
 	 * return properties; }
 	 */
-	 
-	
-	 public ConsumerFactory<String, Entry> entryConsumerFactory() {
-	        Map<String, Object> properties = new HashMap<>();
-	        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-	        		  Constants.KAFKA_SERVER);
-	        		  properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-	        		  StringDeserializer.class.getName());
-	        		  properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-	        		  JsonDeserializer.class.getName());
-	        		  properties.put(ConsumerConfig.GROUP_ID_CONFIG, Constants.GROUP_ID);
-	        		  properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-	        return new DefaultKafkaConsumerFactory<>(properties, new StringDeserializer(), new JsonDeserializer<>(Entry.class));
-	    }
-	
+
+	public Map<String, Object> consumerConfig() {
+		Map<String, Object> properties = new HashMap<>();
+		properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.KAFKA_SERVER);
+		properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class.getName());
+		properties.put(ConsumerConfig.GROUP_ID_CONFIG, Constants.GROUP_ID);
+		properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+		return properties;
+	}
+
+	@Bean
+	public ConsumerFactory<String, Entry> consumerFactory() {
+		return new DefaultKafkaConsumerFactory<>(consumerConfig(), new StringDeserializer(),
+				new JsonDeserializer<>(Entry.class));
+	}
+
 	/*
 	 * @Bean public ConsumerFactory<String, Entry> consumerFactory() throws
 	 * IOException{ return new DefaultKafkaConsumerFactory<>(createConsumer(), new
 	 * StringDeserializer(), new JsonDeserializer<>(Entry.class)); }
 	 */
-	
-	
-	
+
+	/*
+	 * @Bean public ConcurrentKafkaListenerContainerFactory<String, Entry>
+	 * kafkaListenerContainerFactory() throws IOException {
+	 * ConcurrentKafkaListenerContainerFactory<String, Entry> factory = new
+	 * ConcurrentKafkaListenerContainerFactory<>();
+	 * factory.setConsumerFactory(consumerFactory()); factory.setErrorHandler(new
+	 * ErrorHandler() {
+	 * 
+	 * @Override public void handle(Exception thrownException,
+	 * List<ConsumerRecord<?, ?>> records, Consumer<?, ?> consumer,
+	 * MessageListenerContainer container) { String s =
+	 * thrownException.getMessage().
+	 * split("Error deserializing key/value for partition ")[1]
+	 * .split(". If needed, please seek past the record to continue consumption.")[0
+	 * ]; String topics = s.split("-")[0]; int offset =
+	 * Integer.valueOf(s.split("offset ")[1]); int partition =
+	 * Integer.valueOf(s.split("-")[1].split(" at")[0]);
+	 * 
+	 * TopicPartition topicPartition = new TopicPartition(topics, partition); //
+	 * log.info("Skipping " + topic + "-" + partition + " offset " + offset);
+	 * consumer.seek(topicPartition, offset + 1);
+	 * 
+	 * }
+	 * 
+	 * @Override public void handle(Exception e, ConsumerRecord<?, ?>
+	 * consumerRecord) {
+	 * 
+	 * }
+	 * 
+	 * @Override public void handle(Exception e, ConsumerRecord<?, ?>
+	 * consumerRecord, Consumer<?, ?> consumer) { String s =
+	 * e.getMessage().split("Error deserializing key/value for partition ")[1]
+	 * .split(". If needed, please seek past the record to continue consumption.")[0
+	 * ]; String topics = s.split("-")[0]; int offset =
+	 * Integer.valueOf(s.split("offset ")[1]); int partition =
+	 * Integer.valueOf(s.split("-")[1].split(" at")[0]);
+	 * 
+	 * TopicPartition topicPartition = new TopicPartition(topics, partition); //
+	 * log.info("Skipping " + topic + "-" + partition + " offset " + offset);
+	 * consumer.seek(topicPartition, offset + 1);
+	 * 
+	 * } }); return factory; }
+	 */
+
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Entry> kafkaListenerContainerFactory() throws IOException{
+	public ConcurrentKafkaListenerContainerFactory<String, Entry> kafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, Entry> factory = new ConcurrentKafkaListenerContainerFactory<>();
-		factory.setConsumerFactory(entryConsumerFactory());
-		factory.setErrorHandler(new ErrorHandler() {
-            @Override
-            public void handle(Exception thrownException, List<ConsumerRecord<?, ?>> records, Consumer<?, ?> consumer, MessageListenerContainer container) {
-                String s = thrownException.getMessage().split("Error deserializing key/value for partition ")[1].split(". If needed, please seek past the record to continue consumption.")[0];
-                String topics = s.split("-")[0];
-                int offset = Integer.valueOf(s.split("offset ")[1]);
-                int partition = Integer.valueOf(s.split("-")[1].split(" at")[0]);
+		factory.setConsumerFactory(consumerFactory());
+		
 
-                TopicPartition topicPartition = new TopicPartition(topics, partition);
-                //log.info("Skipping " + topic + "-" + partition + " offset " + offset);
-                consumer.seek(topicPartition, offset + 1);
-                System.out.println("okkk"); 
-            }
-
-            @Override
-            public void handle(Exception e, ConsumerRecord<?, ?> consumerRecord) {
-
-            }
-
-            @Override
-            public void handle(Exception e, ConsumerRecord<?, ?> consumerRecord, Consumer<?,?> consumer) {
-                String s = e.getMessage().split("Error deserializing key/value for partition ")[1].split(". If needed, please seek past the record to continue consumption.")[0];
-                String topics = s.split("-")[0];
-                int offset = Integer.valueOf(s.split("offset ")[1]);
-                int partition = Integer.valueOf(s.split("-")[1].split(" at")[0]);
-
-                TopicPartition topicPartition = new TopicPartition(topics, partition);
-                //log.info("Skipping " + topic + "-" + partition + " offset " + offset);
-                consumer.seek(topicPartition, offset + 1);
-                
-
-
-            }
-        });
 		return factory;
 	}
-	
+
 	@Bean
 	public KafkaConsumerFromTopic receiver() {
 		return new KafkaConsumerFromTopic();
 	}
+	
+	
 
 }
