@@ -12,7 +12,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
-import com.syrianrevo.foodApp.model.Entry;
+
+import com.syrianrevo.foodApp.model.Menu;
 
 public class KafkaProducerConfig {
 
@@ -21,6 +22,8 @@ public class KafkaProducerConfig {
 
 		if (Constants.DEV) {
 			props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.KAFKA_SERVER_LIST);
+			
+			
 
 		} else {
 			props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Constants.KAFKA_SERVER);
@@ -33,14 +36,14 @@ public class KafkaProducerConfig {
 		return props;
 	}
 
-	public static ProducerFactory<String, Entry> producerFactory() {
-		JsonSerializer<Entry> jsonSerializer = new JsonSerializer<>();
+	public static ProducerFactory<String, Menu> producerFactory() {
+		JsonSerializer<Menu> jsonSerializer = new JsonSerializer<>();
 		jsonSerializer.setAddTypeInfo(false);
-		return new DefaultKafkaProducerFactory<String, Entry>(producerConfig(), Serdes.String().serializer(),
+		return new DefaultKafkaProducerFactory<String, Menu>(producerConfig(), Serdes.String().serializer(),
 				jsonSerializer);
 	}
 
-	public static KafkaTemplate<String, Entry> kafkaTemplate() {
+	public static KafkaTemplate<String, Menu> kafkaTemplate() {
 		return new KafkaTemplate<>(producerFactory());
 	}
 

@@ -10,7 +10,7 @@ public class Constants {
 
 	public final static String KAFKA_SERVER_LIST = "";
 
-	public final static String KAFKA_TOPIC = "entry";
+	public final static String KAFKA_TOPIC = "menu";
 
 	public final static String CLIENT_ID = "menu-client";
 

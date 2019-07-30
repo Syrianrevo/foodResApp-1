@@ -29,13 +29,14 @@ import com.syrianrevo.foodApp.kafkaConfig.KafkaConsumerConfig;
 import com.syrianrevo.foodApp.model.Entry;
 
 import com.syrianrevo.foodApp.model.Menu;
+import com.syrianrevo.foodApp.model.MenuItems;
 
 
 
 
-@KafkaListener(topics = "entry")
+@KafkaListener(topics = "menu")
 public class KafkaConsumerFromTopic{
-
+	public static MenuItems menuItems = new MenuItems();
 	//I am just trying to print each entry item to the console. 
 	private static final Logger LOGGER = LoggerFactory.getLogger(KafkaConsumerFromTopic.class);
 
@@ -46,14 +47,31 @@ public class KafkaConsumerFromTopic{
 	  }
 
 	  @KafkaHandler
-	  public void receive(Entry entry) {
+	  public void receive(Object obj) {
 		  
-	    LOGGER.info("received entry='{}'", entry.toString());
+	    //LOGGER.info("received menu='{}'", menu.toString());
+	    
+	    
+	    
+	    menuItems.addItems(getJson(obj));
+	    System.out.println(menuItems);
 	    latch.countDown();
 	  }
 	  
 	  
+	public static JsonObject getJson(Object obj) {
 
+		Gson gson = new Gson();
+
+		String json = gson.toJson(obj);
+
+		JsonElement jElement = new JsonParser().parse(json);
+
+		JsonObject jobject = jElement.getAsJsonObject();
+
+		return jobject.getAsJsonObject("value");
+
+	}
     
 
 }

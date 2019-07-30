@@ -24,7 +24,8 @@ import org.springframework.kafka.listener.*;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.config.AbstractKafkaListenerContainerFactory;
 import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
-import com.syrianrevo.foodApp.model.Entry;
+
+import com.syrianrevo.foodApp.model.Menu;
 
 @Configuration
 @EnableKafka
@@ -81,9 +82,9 @@ public class KafkaConsumerConfig {
 	}
 
 	@Bean
-	public ConsumerFactory<String, Entry> consumerFactory() {
+	public ConsumerFactory<String, Menu> consumerFactory() {
 		return new DefaultKafkaConsumerFactory<>(consumerConfig(), new StringDeserializer(),
-				new JsonDeserializer<>(Entry.class));
+				new JsonDeserializer<>(Menu.class));
 	}
 
 	/*
@@ -137,9 +138,10 @@ public class KafkaConsumerConfig {
 	 */
 
 	@Bean
-	public ConcurrentKafkaListenerContainerFactory<String, Entry> kafkaListenerContainerFactory() {
-		ConcurrentKafkaListenerContainerFactory<String, Entry> factory = new ConcurrentKafkaListenerContainerFactory<>();
+	public ConcurrentKafkaListenerContainerFactory<String, Menu> kafkaListenerContainerFactory() {
+		ConcurrentKafkaListenerContainerFactory<String, Menu> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
+		
 		
 
 		return factory;

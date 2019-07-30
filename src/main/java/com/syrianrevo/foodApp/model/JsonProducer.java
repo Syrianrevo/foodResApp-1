@@ -18,7 +18,7 @@ public class JsonProducer {
 	
 	private KafkaProducer producer = new KafkaProducer();
 
-	long x = 1; 
+	//long x = 1; 
 	
 	public JsonProducer(String file) throws FileNotFoundException, IOException {
 		JsonParser jsonParser = new JsonParser();
@@ -31,12 +31,12 @@ public class JsonProducer {
 				
 				
 				
-				Entry entry = new Entry(info);
-				entry.setId(x); 
-				x++;
+				Menu menu = new Menu(info);
+				//entry.setId(x); 
+				//x++;
 				
 				try {
-					producer.send(entry);
+					producer.send(menu);
 				} catch(InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}

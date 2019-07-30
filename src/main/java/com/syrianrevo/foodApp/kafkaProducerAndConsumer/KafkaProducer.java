@@ -12,16 +12,17 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import com.syrianrevo.foodApp.kafkaConfig.Constants;
 import com.syrianrevo.foodApp.kafkaConfig.KafkaProducerConfig;
-import com.syrianrevo.foodApp.model.Entry;
+
+import com.syrianrevo.foodApp.model.Menu;
 
 
 
 public class KafkaProducer {
 	
-	private KafkaTemplate<String, Entry> kafkaTemplate = KafkaProducerConfig.kafkaTemplate();
+	private KafkaTemplate<String, Menu> kafkaTemplate = KafkaProducerConfig.kafkaTemplate();
 
-	public void send(Entry pojo) throws InterruptedException, ExecutionException {
-		Message<Entry> recordResponse = MessageBuilder.withPayload(pojo)
+	public void send(Menu pojo) throws InterruptedException, ExecutionException {
+		Message<Menu> recordResponse = MessageBuilder.withPayload(pojo)
 				.setHeader(KafkaHeaders.TOPIC, Constants.KAFKA_TOPIC).build();
 		RecordMetadata metadata = kafkaTemplate.send(recordResponse).get().getRecordMetadata();
 		System.out.println("Record sent to partition: " + metadata.partition() + ", Offset: " + metadata.offset() +
