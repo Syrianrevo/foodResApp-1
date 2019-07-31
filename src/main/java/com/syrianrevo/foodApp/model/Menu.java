@@ -2,6 +2,7 @@ package com.syrianrevo.foodApp.model;
 
 
 
+
 import java.util.ArrayList;
 
 import javax.persistence.Column;
@@ -35,19 +36,24 @@ public class Menu {
 
     private String itemCategory;
     
-    public Menu(JsonElement menuItem) {
-		String in = menuItem.getAsJsonObject().get("itemName").toString();
-		String id = menuItem.getAsJsonObject().get("itemDescription").toString();
-		String ip = menuItem.getAsJsonObject().get("itemPrice").toString();
-		String iq = menuItem.getAsJsonObject().get("itemQuantity").toString();
-		String ic = menuItem.getAsJsonObject().get("itemCategory").toString();
+    
+    
+    
+    public Menu(JsonElement menuItems) {
+		String in = menuItems.getAsJsonObject().get("itemName").toString();
+		String id = menuItems.getAsJsonObject().get("itemDescription").toString();
+		String ip = menuItems.getAsJsonObject().get("itemPrice").toString();
+		String iq = menuItems.getAsJsonObject().get("itemQuantity").toString();
+		String ic = menuItems.getAsJsonObject().get("itemCategory").toString();
 		
 		this.itemName = in.substring(1, in.length() - 1);
 		this.itemDescription = id.substring(1, id.length() - 1);
 		this.itemPrice = ip.substring(1, ip.length() - 1);
 		this.itemQuantity = iq.substring(1, iq.length() - 1);
 		this.itemCategory = ic.substring(1, ic.length() - 1);
+		
 	}
+    
     
     public String getItemName() {
 		return itemName;
@@ -88,5 +94,10 @@ public class Menu {
 	public void setItemCategory(String itemCategory) {
 		this.itemCategory = itemCategory;
 	}
+	
+	public String toString() 
+    { 
+        return itemName + " " + itemDescription + " " + itemPrice + " " + itemQuantity + " " + itemCategory; 
+    } 
 
 }

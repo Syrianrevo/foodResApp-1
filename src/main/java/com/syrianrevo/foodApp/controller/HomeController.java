@@ -18,6 +18,7 @@ import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
 import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.JsonProducer;
 import com.syrianrevo.foodApp.model.Menu;
+import com.syrianrevo.foodApp.model.MenuItems;
 import com.syrianrevo.foodApp.repository.EntryRepository;
 
 
@@ -29,8 +30,8 @@ import com.syrianrevo.foodApp.repository.EntryRepository;
  */
 @Controller
 public class HomeController {
-    //@Autowired
-   // EntryRepository entryRepository;
+     @Autowired
+     EntryRepository entryRepository;
     
     
     @GetMapping("/home")
@@ -40,7 +41,7 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/home");
         
-      //  System.out.println(KafkaConsumerFromTopic.menu.toString());
+        System.out.println(MenuItems.entry.toString());
         return modelAndView;
     }
    
@@ -51,13 +52,13 @@ public class HomeController {
 	 * allEntries); return "mainmenu"; }
 	 */
     
-	/*
-	 * @RequestMapping("/order") public String order(Model model){ List<Entry>
-	 * allEntries = entryRepository.findAll(); model.addAttribute("entries",
-	 * allEntries);
-	 * 
-	 * return "order"; }
-	 */
+	
+	  @RequestMapping("/order") public String order(Model model){ List<Entry>
+	  allEntries = entryRepository.findAll(); model.addAttribute("entries",
+	  allEntries);
+	  
+	  return "order"; }
+	 
     
 	/*
 	 * // ADD

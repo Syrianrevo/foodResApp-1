@@ -34,19 +34,31 @@ public class Entry {
     @Column(name="item_category")
     private String itemCategory;
     
-    public Entry(JsonElement menuItem) {
-		String in = menuItem.getAsJsonObject().get("itemName").toString();
-		String id = menuItem.getAsJsonObject().get("itemDescription").toString();
-		String ip = menuItem.getAsJsonObject().get("itemPrice").toString();
-		String iq = menuItem.getAsJsonObject().get("itemQuantity").toString();
-		String ic = menuItem.getAsJsonObject().get("itemCategory").toString();
-		
-		this.itemName = in.substring(1, in.length() - 1);
-		this.itemDescription = id.substring(1, id.length() - 1);
-		this.itemPrice = ip.substring(1, ip.length() - 1);
-		this.itemQuantity = iq.substring(1, iq.length() - 1);
-		this.itemCategory = ic.substring(1, ic.length() - 1);
-	}
+    //public static MenuItems menuItems = new MenuItems();
+    
+    
+	/*
+	 * public void temp(MenuItems menuItems) { ArrayList<String> array =
+	 * MenuItems.items;
+	 * 
+	 * 
+	 * 
+	 * for(int i = 0; i <= array.size();i++) { String in = array.get(0); String id =
+	 * array.get(1); String ip = array.get(2); String iq = array.get(3); String ic =
+	 * array.get(4);
+	 * 
+	 * Entry entry = new Entry(); entry.itemName = in.substring(1, in.length() - 1);
+	 * entry.itemDescription = id.substring(1, id.length() - 1); entry.itemPrice =
+	 * ip.substring(1, ip.length() - 1); entry.itemQuantity = iq.substring(1,
+	 * iq.length() - 1); entry.itemCategory = ic.substring(1, ic.length() - 1);
+	 * System.out.println("HIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIHIUH");
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 
 
     public Long getId() {
@@ -96,5 +108,10 @@ public class Entry {
 	public void setItemCategory(String itemCategory) {
 		this.itemCategory = itemCategory;
 	}
+	
+	public String toString() 
+    { 
+        return id + " " + itemName + " " + itemDescription + " " + itemPrice + " " + itemQuantity + " " + itemCategory; 
+    } 
 
 }

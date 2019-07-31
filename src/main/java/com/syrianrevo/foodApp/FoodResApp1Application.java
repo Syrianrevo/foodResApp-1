@@ -20,6 +20,8 @@ public class FoodResApp1Application {
 		
 		
 		SpringApplication.run(FoodResApp1Application.class, args);
+		
+		
 	}
 
 }

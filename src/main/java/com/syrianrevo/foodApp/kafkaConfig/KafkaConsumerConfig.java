@@ -24,7 +24,7 @@ import org.springframework.kafka.listener.*;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.config.AbstractKafkaListenerContainerFactory;
 import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
-
+import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.Menu;
 
 @Configuration
