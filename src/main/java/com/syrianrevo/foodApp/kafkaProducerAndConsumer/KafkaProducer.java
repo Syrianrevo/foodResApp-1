@@ -14,6 +14,7 @@ import com.syrianrevo.foodApp.kafkaConfig.Constants;
 import com.syrianrevo.foodApp.kafkaConfig.KafkaProducerConfig;
 
 import com.syrianrevo.foodApp.model.Menu;
+import com.syrianrevo.foodApp.model.MenuItems;
 
 
 
@@ -21,8 +22,8 @@ public class KafkaProducer {
 	
 	private KafkaTemplate<String, Menu> kafkaTemplate = KafkaProducerConfig.kafkaTemplate();
 
-	public void send(Menu pojo) throws InterruptedException, ExecutionException {
-		Message<Menu> recordResponse = MessageBuilder.withPayload(pojo)
+	public void send(MenuItems menuItems) throws InterruptedException, ExecutionException {
+		Message<MenuItems> recordResponse = MessageBuilder.withPayload(menuItems)
 				.setHeader(KafkaHeaders.TOPIC, Constants.KAFKA_TOPIC).build();
 		RecordMetadata metadata = kafkaTemplate.send(recordResponse).get().getRecordMetadata();
 		System.out.println("Record sent to partition: " + metadata.partition() + ", Offset: " + metadata.offset() +

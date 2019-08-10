@@ -2,8 +2,14 @@ package com.syrianrevo.foodApp.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +26,8 @@ import com.syrianrevo.foodApp.model.JsonProducer;
 import com.syrianrevo.foodApp.model.Menu;
 import com.syrianrevo.foodApp.model.MenuItems;
 import com.syrianrevo.foodApp.repository.EntryRepository;
-
-
-
+import com.syrianrevo.foodApp.repository.MenuRepository;
+import com.syrianrevo.foodApp.service.MenuService;
 
 /**
  * Created by Ammar Mohrat.
@@ -30,37 +35,21 @@ import com.syrianrevo.foodApp.repository.EntryRepository;
  */
 @Controller
 public class HomeController {
-     @Autowired
-     EntryRepository entryRepository;
-    
-    
-    @GetMapping("/home")
-    public ModelAndView home() throws FileNotFoundException, IOException {
-
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/home");
-        
-        System.out.println(MenuItems.entry.toString());
-        return modelAndView;
-    }
-   
-
 	/*
-	 * @RequestMapping("/mainmenu") public String home(Model model){ List<Entry>
-	 * allEntries = entryRepository.findAll(); model.addAttribute("entries",
-	 * allEntries); return "mainmenu"; }
-	 */
-    
-	
-	  @RequestMapping("/order") public String order(Model model){ List<Entry>
-	  allEntries = entryRepository.findAll(); model.addAttribute("entries",
-	  allEntries);
-	  
-	  return "order"; }
-	 
-    
-	/*
+	 * @Autowired private MenuRepository menuRepository;
+	 * 
+	 * @RequestMapping("/order")
+	 * 
+	 * public String order(Model model) {
+	 * 
+	 * List<Menu> allEntries = menuRepository.findAll();
+	 * 
+	 * model.addAttribute("entries", allEntries);
+	 * 
+	 * return "order";
+	 * 
+	 * }
+	 * 
 	 * // ADD
 	 * 
 	 * @RequestMapping(value = "/entry", method = RequestMethod.GET) public String
@@ -71,18 +60,23 @@ public class HomeController {
 	 * model.addAttribute("givenItemPrice", "");
 	 * model.addAttribute("givenItemQuantity", "");
 	 * model.addAttribute("givenItemCategory", ""); return "entry"; }
-	 */
-
-	/*
+	 * 
 	 * @RequestMapping(value = "/entry", method = RequestMethod.POST) public String
-	 * addEntry(@RequestParam String itemName, @RequestParam String
-	 * itemDescription, @RequestParam String itemPrice, @RequestParam String
-	 * itemQuantity, @RequestParam String itemCategory) { Entry newEntry = new
-	 * Entry(itemName, itemDescription, itemPrice, itemQuantity, itemCategory);
-	 * entryRepository.save(newEntry); return "redirect:/entry"; }
+	 * addEntry(@RequestParam String itemName, @RequestParam String itemDescription,
+	 * 
+	 * @RequestParam String itemPrice, @RequestParam String
+	 * itemQuantity, @RequestParam String itemCategory) { MenuItems menuItem = new
+	 * MenuItems(); menuItem.setItemName(itemName);
+	 * menuItem.setItemDescription(itemDescription);
+	 * menuItem.setItemPrice(itemPrice); menuItem.setItemQuantity(itemQuantity);
+	 * menuItem.setItemCategory(itemCategory);
+	 * 
+	 * try { JsonProducer.producer.send(menuItem); } catch (InterruptedException |
+	 * ExecutionException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } return "redirect:/admin/home"; }
 	 */
-    
-    // EDIT 
+	// EDIT
+
 	/*
 	 * @RequestMapping(value = "/entry/{id}", method = RequestMethod.GET) public
 	 * String editEntry(@PathVariable(value = "id") Long entryId, Model model) {
@@ -95,9 +89,7 @@ public class HomeController {
 	 * model.addAttribute("givenItemQuantity", entry.getItemQuantity());
 	 * model.addAttribute("givenItemCategory", entry.getItemCategory()); return
 	 * "entry"; }
-	 */
-
-	/*
+	 * 
 	 * @RequestMapping(value = "/entry/{id}", method = RequestMethod.POST) public
 	 * String updateEntry(@PathVariable(value = "id") Long entryId,
 	 * 
@@ -115,12 +107,13 @@ public class HomeController {
 	 * entry.setItemQuantity(itemQuantity); entry.setItemCategory(itemCategory);
 	 * entryRepository.save(entry); return "redirect:/"; }
 	 */
-    // DELETE
+
+	// DELETE
+
 	/*
 	 * @RequestMapping(value = "/entry/delete/{id}", method = RequestMethod.GET)
 	 * public String deleteEntry(@PathVariable(value = "id") Long entryId) {
 	 * entryRepository.deleteById(entryId); return "redirect:/"; }
 	 */
-	
-}
 
+}

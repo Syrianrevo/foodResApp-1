@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.google.gson.JsonElement;
+import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -20,84 +21,50 @@ import lombok.NoArgsConstructor;
 /**
  * Created by Ammar Mohrat.
  */
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Menu {
 	
 
 
-    private String itemName;
-
-	private String itemDescription;
-
-    private String itemPrice; 
-
-    private String itemQuantity;
-
-    private String itemCategory;
+   
     
+ 
     
-    
-    
-    public Menu(JsonElement menuItems) {
-		String in = menuItems.getAsJsonObject().get("itemName").toString();
-		String id = menuItems.getAsJsonObject().get("itemDescription").toString();
-		String ip = menuItems.getAsJsonObject().get("itemPrice").toString();
-		String iq = menuItems.getAsJsonObject().get("itemQuantity").toString();
-		String ic = menuItems.getAsJsonObject().get("itemCategory").toString();
+    private ArrayList<MenuItems> itemMenu;
+
+	public Menu() {
+		itemMenu = new ArrayList<>();
 		
-		this.itemName = in.substring(1, in.length() - 1);
-		this.itemDescription = id.substring(1, id.length() - 1);
-		this.itemPrice = ip.substring(1, ip.length() - 1);
-		this.itemQuantity = iq.substring(1, iq.length() - 1);
-		this.itemCategory = ic.substring(1, ic.length() - 1);
+		
 		
 	}
-    
-    
-    public String getItemName() {
-		return itemName;
-	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
+	public void addMenuItem(MenuItems item) {
+		
+		itemMenu.add(item);
+	
 
-	public String getItemDescription() {
-		return itemDescription;
-	}
-
-	public void setItemDescription(String itemDescription) {
-		this.itemDescription = itemDescription;
-	}
-
-	public String getItemPrice() {
-		return itemPrice;
-	}
-
-	public void setItemPrice(String itemPrice) {
-		this.itemPrice = itemPrice;
-	}
-
-	public String getItemQuantity() {
-		return itemQuantity;
-	}
-
-	public void setItemQuantity(String itemQuantity) {
-		this.itemQuantity = itemQuantity;
-	}
-
-	public String getItemCategory() {
-		return itemCategory;
-	}
-
-	public void setItemCategory(String itemCategory) {
-		this.itemCategory = itemCategory;
 	}
 	
-	public String toString() 
-    { 
-        return itemName + " " + itemDescription + " " + itemPrice + " " + itemQuantity + " " + itemCategory; 
-    } 
+
+	public String toString()
+    {
+		String s = " "; 
+		for(int i = 0; i < itemMenu.size(); i++) {
+			 s = itemMenu.toString(); 
+		}
+		
+        return s;
+    }
+
+	public Object size() {
+		// TODO Auto-generated method stub
+		
+		
+		return itemMenu.size();
+	}
+    
+	
 
 }

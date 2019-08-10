@@ -2,11 +2,17 @@ package com.syrianrevo.foodApp.controller;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
+import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.Menu;
+import com.syrianrevo.foodApp.model.MenuItems;
 import com.syrianrevo.foodApp.model.User;
+import com.syrianrevo.foodApp.repository.EntryRepository;
 import com.syrianrevo.foodApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,7 +28,10 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-
+    
+    @Autowired
+    private EntryRepository entryRepositry; 
+    
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
         ModelAndView modelAndView = new ModelAndView();
@@ -66,11 +75,16 @@ public class LoginController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+        List<Entry> allEntries = entryRepositry.findAll();
+        modelAndView.addObject("entries", allEntries);
+        
+       
         modelAndView.setViewName("admin/home");
        
         return modelAndView;
     }
+    
+    
 
 
 }

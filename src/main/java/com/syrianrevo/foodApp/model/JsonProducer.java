@@ -16,7 +16,7 @@ import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaProducer;
 
 public class JsonProducer {
 	
-	private KafkaProducer producer = new KafkaProducer();
+	public static KafkaProducer producer = new KafkaProducer();
 
 	//long x = 1; 
 	
@@ -31,12 +31,10 @@ public class JsonProducer {
 				
 				
 				
-				Menu menu = new Menu(info);
-				//entry.setId(x); 
-				//x++;
+				MenuItems menuItems = new MenuItems(info);
 				
 				try {
-					producer.send(menu);
+					producer.send(menuItems);
 				} catch(InterruptedException | ExecutionException e) {
 					e.printStackTrace();
 				}
