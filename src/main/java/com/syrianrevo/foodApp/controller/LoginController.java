@@ -84,7 +84,14 @@ public class LoginController {
         return modelAndView;
     }
     
-    
+    @RequestMapping(value="/order", method = RequestMethod.GET)
+    public ModelAndView order() {
+    	ModelAndView modelAndView = new ModelAndView();
+    	List<Entry> allEntries = entryRepositry.findAll(); 
+    	modelAndView.addObject("entries", allEntries);
+    	modelAndView.setViewName("order");
+    	return modelAndView; 
+    }
 
 
 }
