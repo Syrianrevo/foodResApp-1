@@ -35,46 +35,38 @@ import com.syrianrevo.foodApp.service.MenuService;
  */
 @Controller
 public class HomeController {
-	/*
-	 * @Autowired private MenuRepository menuRepository;
-	 * 
-	 * @RequestMapping("/order")
-	 * 
-	 * public String order(Model model) {
-	 * 
-	 * List<Menu> allEntries = menuRepository.findAll();
-	 * 
-	 * model.addAttribute("entries", allEntries);
-	 * 
-	 * return "order";
-	 * 
-	 * }
-	 * 
-	 * // ADD
-	 * 
-	 * @RequestMapping(value = "/entry", method = RequestMethod.GET) public String
-	 * newEntry(Model model) { model.addAttribute("pageTitle", "New Entry");
-	 * model.addAttribute("givenAction", "/entry");
-	 * model.addAttribute("givenItemName", "");
-	 * model.addAttribute("givenItemDescription", "");
-	 * model.addAttribute("givenItemPrice", "");
-	 * model.addAttribute("givenItemQuantity", "");
-	 * model.addAttribute("givenItemCategory", ""); return "entry"; }
-	 * 
-	 * @RequestMapping(value = "/entry", method = RequestMethod.POST) public String
-	 * addEntry(@RequestParam String itemName, @RequestParam String itemDescription,
-	 * 
-	 * @RequestParam String itemPrice, @RequestParam String
-	 * itemQuantity, @RequestParam String itemCategory) { MenuItems menuItem = new
-	 * MenuItems(); menuItem.setItemName(itemName);
-	 * menuItem.setItemDescription(itemDescription);
-	 * menuItem.setItemPrice(itemPrice); menuItem.setItemQuantity(itemQuantity);
-	 * menuItem.setItemCategory(itemCategory);
-	 * 
-	 * try { JsonProducer.producer.send(menuItem); } catch (InterruptedException |
-	 * ExecutionException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } return "redirect:/admin/home"; }
-	 */
+	
+	  // ADD
+	  
+	  @RequestMapping(value = "/entry", method = RequestMethod.GET) public String
+	  newMenuItems(Model model) { model.addAttribute("pageTitle", "New Item");
+	  model.addAttribute("givenAction", "/entry");
+	  model.addAttribute("givenItemName", "");
+	  model.addAttribute("givenItemDescription", "");
+	  model.addAttribute("givenItemPrice", "");
+	  model.addAttribute("givenItemQuantity", "");
+	  model.addAttribute("givenItemCategory", ""); return "entry"; }
+	  
+	@RequestMapping(value = "/entry", method = RequestMethod.POST)
+	public String addItem(@RequestParam String itemName, @RequestParam String itemDescription,
+
+			@RequestParam String itemPrice, @RequestParam String itemQuantity, @RequestParam String itemCategory)
+	{
+		MenuItems menuItem = new MenuItems();
+		menuItem.setItemName(itemName);
+		menuItem.setItemDescription(itemDescription);
+		menuItem.setItemPrice(itemPrice);
+		menuItem.setItemQuantity(itemQuantity);
+		menuItem.setItemCategory(itemCategory);
+
+		try {
+			JsonProducer.producer.send(menuItem);
+		} catch (InterruptedException | ExecutionException e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/admin/home";
+	}
+	 
 	// EDIT
 
 	/*

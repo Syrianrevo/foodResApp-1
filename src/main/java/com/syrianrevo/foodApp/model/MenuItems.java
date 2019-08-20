@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class MenuItems {
 
 
@@ -38,29 +38,38 @@ public class MenuItems {
     
 
 	//public static ArrayList<String> items;
+    
+	/*
+	 * public MenuItems(String a, String b, String c, String d, String e) {
+	 * this.itemName = a; this.itemDescription = b; this.itemPrice = c;
+	 * this.itemQuantity = d; this.itemCategory = e;
+	 * 
+	 * }
+	 */
 
     
-    public MenuItems(JsonElement menuItems) {
-    	
-    	String in = menuItems.getAsJsonObject().get("itemName").toString();
-
-		String id = menuItems.getAsJsonObject().get("itemDescription").toString();
-
-		String ip = menuItems.getAsJsonObject().get("itemPrice").toString();
-
-		String iq = menuItems.getAsJsonObject().get("itemQuantity").toString();
-
-		String ic = menuItems.getAsJsonObject().get("itemCategory").toString();
-
-		
-
-		this.itemName = in.substring(1, in.length() - 1);
-		this.itemDescription = id.substring(1, id.length() - 1);
-		this.itemPrice = ip.substring(1, ip.length() - 1);
-		this.itemQuantity = iq.substring(1, iq.length() - 1);
-		this.itemCategory = ic.substring(1, ic.length() - 1);
-    	
-    }
+	
+	  public MenuItems(JsonElement menuItems) {
+	  
+	  String in = menuItems.getAsJsonObject().get("itemName").toString();
+	  
+	  String id = menuItems.getAsJsonObject().get("itemDescription").toString();
+	  
+	  String ip = menuItems.getAsJsonObject().get("itemPrice").toString();
+	  
+	  String iq = menuItems.getAsJsonObject().get("itemQuantity").toString();
+	  
+	  String ic = menuItems.getAsJsonObject().get("itemCategory").toString();
+	  
+	  
+	  
+	  this.itemName = in.substring(1, in.length() - 1); this.itemDescription =
+	  id.substring(1, id.length() - 1); this.itemPrice = ip.substring(1,
+	  ip.length() - 1); this.itemQuantity = iq.substring(1, iq.length() - 1);
+	  this.itemCategory = ic.substring(1, ic.length() - 1);
+	  
+	  }
+	 
     
 
     public String getItemName() {

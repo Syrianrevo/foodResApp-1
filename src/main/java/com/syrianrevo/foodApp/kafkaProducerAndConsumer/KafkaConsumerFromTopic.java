@@ -1,9 +1,10 @@
 package com.syrianrevo.foodApp.kafkaProducerAndConsumer;
 
+
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -31,7 +32,7 @@ import com.syrianrevo.foodApp.kafkaConfig.KafkaConsumerConfig;
 import com.syrianrevo.foodApp.model.Entry;
 
 import com.syrianrevo.foodApp.model.Menu;
-
+import com.syrianrevo.foodApp.model.MenuContainer;
 import com.syrianrevo.foodApp.model.MenuItems;
 import com.syrianrevo.foodApp.repository.EntryRepository;
 
@@ -47,28 +48,29 @@ public class KafkaConsumerFromTopic{
 	  private long x = 0; 
 
 	  //public static MenuItems menuItems = new MenuItems();
-	  public static Menu menu = new Menu(); 
+	 // public static Menu menu = new Menu(); 
 	  public static Entry entry = new Entry(); 
-	  
-
+	  public static List<MenuItems> menuArrayL = new ArrayList<MenuItems>();
+	  //public static MenuContainer menuContainer = new MenuContainer(); 
+	 
 	  @KafkaHandler
 
 	  public void receive(Object obj) {
 		  
-		 MenuItems menuItems = new MenuItems(getJson(obj));
 		
-		 entry.setId(x);
-		 entry.setItemName(menuItems.getItemName());
-		 entry.setItemDescription(menuItems.getItemDescription());
-		 entry.setItemPrice(menuItems.getItemPrice());
-		 entry.setItemQuantity(menuItems.getItemQuantity());
-		 entry.setItemCategory(menuItems.getItemCategory());
-		 entryRepository.save(entry);
-		 x++; 
-		 menu.addMenuItem(menuItems);
-		 
+		MenuItems menuItems = new MenuItems(getJson(obj));
+		menuArrayList(menuItems);
+		
 		
 	  }
+	  
+	  public static List<MenuItems> menuArrayList(MenuItems menuitems){
+		  
+		  menuArrayL.add(menuitems);
+		 return menuArrayL;
+		  
+	  }
+	 
 
 	  
 	 

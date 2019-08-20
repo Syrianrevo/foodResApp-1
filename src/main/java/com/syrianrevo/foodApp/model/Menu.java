@@ -47,6 +47,13 @@ public class Menu {
 
 	}
 	
+	public ArrayList<MenuItems> getMenuItems() {
+        return itemMenu;
+    }
+	
+	public void setItemMenu(ArrayList<MenuItems> itemMenu) {
+        this.itemMenu = itemMenu;
+    }
 
 	public String toString()
     {
@@ -58,12 +65,7 @@ public class Menu {
         return s;
     }
 
-	public Object size() {
-		// TODO Auto-generated method stub
-		
-		
-		return itemMenu.size();
-	}
+	
     
 	
 
