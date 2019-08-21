@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Chef Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body id="chef">
+	
+	<form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+    
+    <div id="topics-expanded">
+		<h1 class="title">Menu Entries</h1>
+		
+		<div id="topic-event-creation">
+		
+        <form method="post" th:action="${givenAction}">
+        <div>
+            <input name="itemName" type="text" placeholder="Item Name" th:value="${givenItemName}" />
+        </div>
+        <div>
+            <input name="itemDescription" type="text" placeholder="Item Description" th:value="${givenItemDescription}" />
+        </div>
+        <div>
+            <input name="itemPrice" type="text" placeholder="Item Price" th:value="${givenItemPrice}" />
+        </div>
+        <div>
+            <input name="itemQuantity" type="text" placeholder="Item Quantity" th:value="${givenItemQuantity}" />
+        </div>
+        <div>
+        	<select name="itemCategory">
+			  <option value="Appetizers">Appetizers</option>
+			  <option value="Lunch">Lunch</option>
+			  <option value="Dinner">Dinner</option>
+			  <option value="Drinks">"Drinks"</option>
+			  <option value="Sides">"Sides"</option>
+			</select>
+           
+        </div>
+        <div>
+            <button type="submit">Post</button>
+        </div>
+    </form>
+</body>
+</html>

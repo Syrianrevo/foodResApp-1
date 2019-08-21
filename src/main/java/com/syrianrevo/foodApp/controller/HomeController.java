@@ -25,7 +25,8 @@ import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.JsonProducer;
 import com.syrianrevo.foodApp.model.Menu;
 import com.syrianrevo.foodApp.model.MenuItems;
-import com.syrianrevo.foodApp.repository.EntryRepository;
+
+
 import com.syrianrevo.foodApp.repository.MenuRepository;
 import com.syrianrevo.foodApp.service.MenuService;
 
@@ -39,13 +40,16 @@ public class HomeController {
 	  // ADD
 	  
 	  @RequestMapping(value = "/entry", method = RequestMethod.GET) public String
-	  newMenuItems(Model model) { model.addAttribute("pageTitle", "New Item");
+	  newMenuItems(Model model) {
+	  model.addAttribute("pageTitle", "New Item");
 	  model.addAttribute("givenAction", "/entry");
 	  model.addAttribute("givenItemName", "");
 	  model.addAttribute("givenItemDescription", "");
 	  model.addAttribute("givenItemPrice", "");
 	  model.addAttribute("givenItemQuantity", "");
-	  model.addAttribute("givenItemCategory", ""); return "entry"; }
+	  model.addAttribute("givenItemCategory", "");
+	  
+	  return "entry"; }
 	  
 	@RequestMapping(value = "/entry", method = RequestMethod.POST)
 	public String addItem(@RequestParam String itemName, @RequestParam String itemDescription,
@@ -68,37 +72,70 @@ public class HomeController {
 	}
 	 
 	// EDIT
-
+	
 	/*
-	 * @RequestMapping(value = "/entry/{id}", method = RequestMethod.GET) public
-	 * String editEntry(@PathVariable(value = "id") Long entryId, Model model) {
-	 * Entry entry = entryRepository.findOne(entryId);
-	 * model.addAttribute("pageTitle", "Edit Entry");
-	 * model.addAttribute("givenAction", "/entry/" + entryId);
-	 * model.addAttribute("givenItemName", entry.getItemName());
-	 * model.addAttribute("givenItemDescription", entry.getItemDescription());
-	 * model.addAttribute("givenItemPrice", entry.getItemPrice());
-	 * model.addAttribute("givenItemQuantity", entry.getItemQuantity());
-	 * model.addAttribute("givenItemCategory", entry.getItemCategory()); return
-	 * "entry"; }
+	 * @RequestMapping(value =
+	 * "/admin/updateItem/{itemNameTemp}{itemDescriptionTemp}{itemPriceTemp}{itemCategoryTemp}{itemQuantityTemp}",
+	 * method = RequestMethod.GET) public String
+	 * updateItem(@RequestParam("itemNameTemp") String
+	 * itemName,@RequestParam("itemDescriptionTemp") String
+	 * itemDescription,@RequestParam("itemPriceTemp") String
+	 * itemPrice,@RequestParam("itemQuantityTemp") String
+	 * itemQuantity,@RequestParam("itemCategoryTemp") String itemCategory, Model
+	 * model) throws Exception{
 	 * 
-	 * @RequestMapping(value = "/entry/{id}", method = RequestMethod.POST) public
-	 * String updateEntry(@PathVariable(value = "id") Long entryId,
+	 * model.addAttribute("givenItemName",itemName);
+	 * model.addAttribute("givenItemDescription", itemDescription);
+	 * model.addAttribute("givenItemPrice", itemPrice);
+	 * model.addAttribute("givenItemQuantity", itemQuantity);
+	 * model.addAttribute("givenItemCategory", itemCategory);
 	 * 
-	 * @RequestParam String itemName,
-	 * 
-	 * @RequestParam String itemDescription,
-	 * 
-	 * @RequestParam String itemPrice,
-	 * 
-	 * @RequestParam String itemQuantity,
-	 * 
-	 * @RequestParam String itemCategory) { Entry entry =
-	 * entryRepository.findOne(entryId); entry.setItemName(itemName);
-	 * entry.setItemDescription(itemDescription); entry.setItemPrice(itemPrice);
-	 * entry.setItemQuantity(itemQuantity); entry.setItemCategory(itemCategory);
-	 * entryRepository.save(entry); return "redirect:/"; }
+	 * return "/admin/updateItem"; }
 	 */
+	 
+	
+	
+	
+	@RequestMapping(value = "/admin/updateItem/{itemName}", method = RequestMethod.GET)
+	public String updateItem(@PathVariable(value = "itemName") String itemName, Model model) {
+		model.addAttribute("givenItemName",itemName);
+		List<MenuItems> menuItemsList = KafkaConsumerFromTopic.menuArrayL;
+		for (MenuItems menuItems : menuItemsList) {
+	        if (menuItems.getItemName().equals(itemName)) {
+	        	model.addAttribute("givenItemDescription", menuItems.getItemDescription());
+	    		model.addAttribute("givenItemPrice", menuItems.getItemPrice());
+	    		model.addAttribute("givenItemQuantity", menuItems.getItemQuantity());
+	    	    model.addAttribute("givenItemCategory", menuItems.getItemCategory());
+	        }
+	    }
+		//MenuItems menuItems = MenuItemsRepository.findByItemName(itemName);
+		//model.addAttribute("givenItemDescription", itemDescription);
+		//model.addAttribute("givenItemPrice", itemPrice);
+		//model.addAttribute("givenItemQuantity", itemQuantity);
+	   // model.addAttribute("givenItemCategory", itemCategory);
+	    
+	    return "/admin/updateItem";
+
+	}
+	 
+	
+	/*
+	 * @RequestMapping(value = "/admin/updateItem", method = RequestMethod.POST)
+	 * public String updateItem(@RequestParam String itemName, @RequestParam String
+	 * itemDescription,
+	 * 
+	 * @RequestParam String itemPrice, @RequestParam String
+	 * itemQuantity, @RequestParam String itemCategory) { MenuItems menuItem = new
+	 * MenuItems(); menuItem.setItemName(itemName);
+	 * menuItem.setItemDescription(itemDescription);
+	 * menuItem.setItemPrice(itemPrice); menuItem.setItemQuantity(itemQuantity);
+	 * menuItem.setItemCategory(itemCategory);
+	 * 
+	 * try { JsonProducer.producer.send(menuItem); } catch (InterruptedException |
+	 * ExecutionException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } return "redirect:/admin/home"; }
+	 */
+	
 
 	// DELETE
 

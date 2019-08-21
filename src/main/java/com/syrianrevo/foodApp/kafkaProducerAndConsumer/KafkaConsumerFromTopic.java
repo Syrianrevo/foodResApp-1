@@ -34,7 +34,7 @@ import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.Menu;
 import com.syrianrevo.foodApp.model.MenuContainer;
 import com.syrianrevo.foodApp.model.MenuItems;
-import com.syrianrevo.foodApp.repository.EntryRepository;
+//import com.syrianrevo.foodApp.repository.EntryRepository;
 
 
 
@@ -43,9 +43,9 @@ import com.syrianrevo.foodApp.repository.EntryRepository;
 public class KafkaConsumerFromTopic{
 		
 	  @Autowired
-	  private EntryRepository entryRepository; 
+	 // private EntryRepository entryRepository; 
 	  
-	  private long x = 0; 
+	  //private long x = 0; 
 
 	  //public static MenuItems menuItems = new MenuItems();
 	 // public static Menu menu = new Menu(); 

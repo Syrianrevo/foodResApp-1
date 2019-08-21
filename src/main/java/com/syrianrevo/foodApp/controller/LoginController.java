@@ -13,7 +13,7 @@ import com.syrianrevo.foodApp.model.Menu;
 import com.syrianrevo.foodApp.model.MenuContainer;
 import com.syrianrevo.foodApp.model.MenuItems;
 import com.syrianrevo.foodApp.model.User;
-import com.syrianrevo.foodApp.repository.EntryRepository;
+//import com.syrianrevo.foodApp.repository.EntryRepository;
 import com.syrianrevo.foodApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,7 +32,7 @@ public class LoginController {
     private UserService userService;
     
     @Autowired
-    private EntryRepository entryRepositry; 
+    //private EntryRepository entryRepositry; 
     
     @RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
     public ModelAndView login(){
@@ -101,9 +101,12 @@ public class LoginController {
     	 
        
         model.addAttribute("menuItems", menuItems);
-        System.out.println(menuItems.toString());
+        //System.out.println(menuItems.toString());
         return "/admin/home";
     }
+    
+    
+    
     
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public String order(Model model) throws Exception{

@@ -27,11 +27,15 @@
          <div id="apps-list"></div>
          		<div th:each="menuItem : ${menuItems}">
 		          	<div th:if="${menuItem.itemCategory} eq 'Appetizers'">
-						<!-- <h1><input type="checkbox" th:field="${entries}" th:value="${menuItems.itemQuantity}" /><label th:text="${menuItems.itemName}"></label></h1><h1 class="menu-price"><label th:text="${menuItems.itemPrice}"></label></h1>  -->
+						
 						<h1><label th:text="${menuItem.itemName}"></label></h1><div th:inline="text" class="menu-price">Price: [[${menuItem.itemPrice}]] $</div>
 						<p th:text="${menuItem.itemDescription}"></p>
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
+						<!-- <a th:href="@{/admin/updateItem/{itemNameTemp}{itemDescriptionTemp}{itemPriceTemp}{itemCategoryTemp}{itemQuantityTemp}(itemNameTemp = ${menuItem.itemName}, itemDescriptionTemp = ${menuItem.itemDescription}, itemPriceTemp = ${menuItem.itemPrice}, itemQuantityTemp = ${menuItem.itemQuantity}, itemCategoryTemp = ${menuItem.itemCategory})}">Update the Item</a><br /> -->
+						
+						<a th:href="@{/admin/updateItem/{itemName}(itemName = ${menuItem.itemName})}">Update the Item</a><br />
+						
 						
 						
 				    </div>	        
@@ -46,7 +50,7 @@
 						<p th:text="${menuItem.itemDescription}"></p>
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>        
-						
+						<a th:href="@{/admin/updateItem/{itemName}(itemName = ${menuItem.itemName})}">Update the Item</a><br />
 				    </div>	        
 		    	</div>
         </div>
@@ -59,7 +63,7 @@
 						<p th:text="${menuItem.itemDescription}"></p>
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
-						
+						<a th:href="@{/admin/updateItem/{itemName}(itemName = ${menuItem.itemName})}">Update the Item</a><br />
 				    </div>	        
 		    	</div>
         </div>
@@ -72,7 +76,7 @@
 						<p th:text="${menuItem.itemDescription}"></p>
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  			        
-			
+						<a th:href="@{/admin/updateItem/{itemName}(itemName = ${menuItem.itemName})}">Update the Item</a><br />
 				    </div>	        
 		    	</div>
         </div>
@@ -85,7 +89,7 @@
 						<p th:text="${menuItem.itemDescription}"></p>
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
-						
+						<a th:href="@{/admin/updateItem/{itemName}(itemName = ${menuItem.itemName})}">Update the Item</a><br />
 				    </div>	        
 		    	</div>
         </div>
@@ -96,5 +100,6 @@
     <div class="">
         <button id="add-item" onclick="window.location.href = '/entry'">Add a new Item to the Menu</button>
     </div>
+    
 </body>
 </html>
