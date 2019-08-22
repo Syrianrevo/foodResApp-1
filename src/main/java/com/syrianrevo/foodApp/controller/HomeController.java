@@ -70,30 +70,24 @@ public class HomeController {
 		}
 		return "redirect:/admin/home";
 	}
+	
+	@RequestMapping(value = "/order", method = RequestMethod.GET)
+    public String order(Model model) throws Exception{
+       List<MenuItems> menuItems = KafkaConsumerFromTopic.menuArrayL;
+    	 
+       
+        model.addAttribute("menuItems", menuItems);
+       
+        return "/order";
+    }
+	@RequestMapping(value = "/order", method = RequestMethod.POST)
+	public String reviewOrder(@RequestParam String itemName, @RequestParam String itemQuantity)	{
+		System.out.println(itemName + itemQuantity); 
+		
+		return "/reviewOrder";
+	}
 	 
 	// EDIT
-	
-	/*
-	 * @RequestMapping(value =
-	 * "/admin/updateItem/{itemNameTemp}{itemDescriptionTemp}{itemPriceTemp}{itemCategoryTemp}{itemQuantityTemp}",
-	 * method = RequestMethod.GET) public String
-	 * updateItem(@RequestParam("itemNameTemp") String
-	 * itemName,@RequestParam("itemDescriptionTemp") String
-	 * itemDescription,@RequestParam("itemPriceTemp") String
-	 * itemPrice,@RequestParam("itemQuantityTemp") String
-	 * itemQuantity,@RequestParam("itemCategoryTemp") String itemCategory, Model
-	 * model) throws Exception{
-	 * 
-	 * model.addAttribute("givenItemName",itemName);
-	 * model.addAttribute("givenItemDescription", itemDescription);
-	 * model.addAttribute("givenItemPrice", itemPrice);
-	 * model.addAttribute("givenItemQuantity", itemQuantity);
-	 * model.addAttribute("givenItemCategory", itemCategory);
-	 * 
-	 * return "/admin/updateItem"; }
-	 */
-	 
-	
 	
 	
 	@RequestMapping(value = "/admin/updateItem/{itemName}", method = RequestMethod.GET)

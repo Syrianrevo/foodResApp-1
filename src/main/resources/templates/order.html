@@ -15,12 +15,13 @@
         </button>
     </form>
     
-	
+	<form method="post" th:action="${givenAction}">
      <div id="topics-expanded">
 		<h1 class="title">Menu Items</h1>
 		
 		<div id="topic-event-creation">
         <div class="apps">
+        
           <h1 class="topic-title">Appetizers</h1>
          <div id="apps-list"></div>
          		<div th:each="menuItem : ${menuItems}">
@@ -31,7 +32,11 @@
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
 						
-						
+						<div>
+				            <input name="itemQuantity" type="text" placeholder="Item Quantity"  />
+				        	<input name="itemName" type="hidden" value="[[${menuItem.itemQuantity}]]"  />
+				        </div>
+
 				    </div>	        
 		    	</div>	
         </div>
@@ -90,10 +95,23 @@
 
       </div>
     </div>
-    
+    <br></br>
     <div class="">
-        <button id="add-item" onclick="window.location.href = '/menuItems'">Add a new Item to the Menu</button>
-    </div>
+            <button id="add-item" type="submit">Review Order</button>
+        </div>
+        
+     </form>
+    
+    <p id="demo"></p> 
+    
+    <script>
+    var orderItems = [];
+		function addToOrderFunction(itemName) {
+			orderItems.push(itemName);
+			document.getElementById("demo").innerHTML = orderItems;
+		}
+	</script>
+
 </body>
 </html>
 

@@ -108,15 +108,7 @@ public class LoginController {
     
     
     
-    @RequestMapping(value = "/order", method = RequestMethod.GET)
-    public String order(Model model) throws Exception{
-       List<MenuItems> menuItems = KafkaConsumerFromTopic.menuArrayL;
-    	 
-       
-        model.addAttribute("menuItems", menuItems);
-       
-        return "/order";
-    }
+    
    
 
 
