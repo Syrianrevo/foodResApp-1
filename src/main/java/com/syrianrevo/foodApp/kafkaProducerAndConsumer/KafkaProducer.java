@@ -30,6 +30,14 @@ public class KafkaProducer {
 				", Timestamp: " + metadata.timestamp());
 	}
 	
+	public void sendToShoppingCart(MenuItems menuItems) throws InterruptedException, ExecutionException {
+		Message<MenuItems> recordResponse = MessageBuilder.withPayload(menuItems)
+				.setHeader(KafkaHeaders.TOPIC, Constants.KAFKA_ORDER_TOPIC).build();
+		RecordMetadata metadata = kafkaTemplate.send(recordResponse).get().getRecordMetadata();
+		System.out.println("Record sent to partition: " + metadata.partition() + ", Offset: " + metadata.offset() +
+				", Timestamp: " + metadata.timestamp());
+	}
+	
 	
 
 }

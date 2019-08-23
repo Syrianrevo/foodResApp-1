@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Review Order</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<body>
 
-</body>
+
+<body>
+        <h1>Thymeleaf tutorial - Solution for exercise 6: iteration</h1>
+        <h2>Product list</h2>
+        <table>
+            <thead>
+                <tr>
+                     <th>Ordering</th>
+			            <th>Item</th>
+			            <th>Price</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr th:each="menuItem : ${menuItems}">
+            <td th:text="${menuItem.itemDescription}"></td>
+            <td th:text="${menuItem.itemPrice}"></td>
+            <td th:text="${menuItem.itemName}"></td>
+            </tr>
+               
+            </tbody>
+        </table>
+    </body>
+    
 </html>

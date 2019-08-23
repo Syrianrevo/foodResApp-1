@@ -32,10 +32,10 @@
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
 						
-						<div>
-				            <input name="itemQuantity" type="text" placeholder="Item Quantity"  />
-				        	<input name="itemName" type="hidden" value="[[${menuItem.itemQuantity}]]"  />
-				        </div>
+						<a th:href="@{/reviewOrder/{itemName}(itemName = ${menuItem.itemName})}" class="col-md-1">
+			                <button type="button" class="btn btn-primary" >Add to Order</button>
+			            </a>
+			            <br><br>
 
 				    </div>	        
 		    	</div>	
@@ -50,6 +50,11 @@
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>        
 						
+						<a th:href="@{/reviewOrder/{itemName}(itemName = ${menuItem.itemName})}" class="col-md-1">
+			                <button type="button" class="btn btn-primary" >Add to Order</button>
+			            </a>
+			            <br><br>
+			            
 				    </div>	        
 		    	</div>
         </div>
@@ -63,6 +68,11 @@
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
 						
+						<a th:href="@{/reviewOrder/{itemName}(itemName = ${menuItem.itemName})}" class="col-md-1">
+			                <button type="button" class="btn btn-primary" >Add to Order</button>
+			            </a>
+			            <br><br>
+			            
 				    </div>	        
 		    	</div>
         </div>
@@ -76,6 +86,11 @@
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  			        
 			
+						<a th:href="@{/reviewOrder/{itemName}(itemName = ${menuItem.itemName})}" class="col-md-1">
+			                <button type="button" class="btn btn-primary" >Add to Order</button>
+			            </a>
+			            <br><br>
+			            
 				    </div>	        
 		    	</div>
         </div>
@@ -89,6 +104,11 @@
 						<div th:inline="text" >Quantity: [[${menuItem.itemQuantity}]] Available</div>	
 						<br></br>  
 						
+						<a th:href="@{/reviewOrder/{itemName}(itemName = ${menuItem.itemName})}" class="col-md-1">
+			                <button type="button" class="btn btn-primary" >Add to Order</button>
+			            </a>
+			            <br><br>
+			            
 				    </div>	        
 		    	</div>
         </div>

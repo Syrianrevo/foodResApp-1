@@ -38,19 +38,14 @@ import com.syrianrevo.foodApp.model.MenuItems;
 
 
 
-@KafkaListener(topics = "menu")
+@KafkaListener(topics = {"menu" , "order"})
 
 public class KafkaConsumerFromTopic{
 		
-	  @Autowired
-	 // private EntryRepository entryRepository; 
+	
 	  
-	  //private long x = 0; 
-
-	  //public static MenuItems menuItems = new MenuItems();
-	 // public static Menu menu = new Menu(); 
-	  public static Entry entry = new Entry(); 
 	  public static List<MenuItems> menuArrayL = new ArrayList<MenuItems>();
+	  public static List<MenuItems> shoppingList = new ArrayList<>(); 
 	  //public static MenuContainer menuContainer = new MenuContainer(); 
 	 
 	  @KafkaHandler
@@ -64,10 +59,26 @@ public class KafkaConsumerFromTopic{
 		
 	  }
 	  
+	  public void orderReceive(Object obj) {
+		  
+			
+			MenuItems menuItems = new MenuItems(getJson(obj));
+			menuArrayList(menuItems);
+			
+			
+		  }
+	  
 	  public static List<MenuItems> menuArrayList(MenuItems menuitems){
 		  
 		  menuArrayL.add(menuitems);
 		 return menuArrayL;
+		  
+	  }
+	  
+	 public static List<MenuItems> shoppingArrayList(MenuItems menuitems){
+		  
+		 shoppingList.add(menuitems);
+		 return shoppingList;
 		  
 	  }
 	 

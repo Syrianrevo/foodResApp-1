@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.syrianrevo.foodApp.kafkaConfig.Constants;
 import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaConsumerFromTopic;
+import com.syrianrevo.foodApp.kafkaProducerAndConsumer.KafkaProducer;
 import com.syrianrevo.foodApp.model.Entry;
 import com.syrianrevo.foodApp.model.JsonProducer;
 import com.syrianrevo.foodApp.model.Menu;
@@ -36,6 +37,9 @@ import com.syrianrevo.foodApp.service.MenuService;
  */
 @Controller
 public class HomeController {
+	public static KafkaProducer shoppingCartProducer = new KafkaProducer();
+	
+	
 	
 	  // ADD
 	  
@@ -80,6 +84,8 @@ public class HomeController {
        
         return "/order";
     }
+	
+	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public String reviewOrder(@RequestParam String itemName, @RequestParam String itemQuantity)	{
 		System.out.println(itemName + itemQuantity); 
@@ -112,6 +118,46 @@ public class HomeController {
 
 	}
 	 
+	
+	@RequestMapping(value = "/reviewOrder/{itemName}", method = RequestMethod.GET)
+	public String reviewOrder(@PathVariable(value = "itemName") String itemName, Model model) {
+		List<MenuItems> menuItemsList = KafkaConsumerFromTopic.menuArrayL;
+		for (MenuItems menuItems : menuItemsList) {
+	        if (menuItems.getItemName().equals(itemName)) {
+	        	
+	        	MenuItems menuItem = new MenuItems();
+	    		menuItem.setItemName(itemName);
+	    		menuItem.setItemDescription(menuItems.getItemDescription());
+	    		menuItem.setItemPrice(menuItems.getItemPrice());
+	    		menuItem.setItemQuantity(menuItems.getItemQuantity());
+	    		menuItem.setItemCategory(menuItems.getItemCategory());
+	        
+	    		 try {
+	 				shoppingCartProducer.sendToShoppingCart(menuItem);
+	 			} catch (InterruptedException | ExecutionException e) { // TODO Auto-generated catch block
+	 				e.printStackTrace();
+	 			}
+	        }
+	        
+	       
+	    }
+		return "/reviewOrder";
+		
+	}
+	
+	@RequestMapping(value = "/reviewOrder", method = RequestMethod.GET)
+    public String reviewOrderPage(Model model) throws Exception{
+       List<MenuItems> menuItems = KafkaConsumerFromTopic.shoppingList;
+    	 
+       
+        model.addAttribute("menuItems", menuItems);
+        System.out.println(menuItems.toString());
+        
+        return "/reviewOrder";
+    }
+	
+	
+	
 	
 	/*
 	 * @RequestMapping(value = "/admin/updateItem", method = RequestMethod.POST)

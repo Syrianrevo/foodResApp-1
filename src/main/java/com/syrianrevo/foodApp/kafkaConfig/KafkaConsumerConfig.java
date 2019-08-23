@@ -64,6 +64,12 @@ public class KafkaConsumerConfig {
 		return new KafkaConsumerFromTopic();
 	}
 	
+	@Bean
+	public KafkaConsumerFromTopic orderReceiver() {
+		
+		return new KafkaConsumerFromTopic();
+	}
+	
 	
 
 }
